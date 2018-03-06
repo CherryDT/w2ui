@@ -1338,8 +1338,7 @@ var w2utils = (function ($) {
             edata = options.trigger({ phase: 'before', type: 'close', target: 'self' });
             if (edata.isCancelled === true) return;
             // default behavior
-            var oldTransform = $msg.css('transform');
-            var translateX = ((oldTransform || '').match(/translateX\([^)]*\)/) || [])[1] || '';
+            var translateX = $msg.hasClass('w2ui-message-autosize') ? 'translateX(-50%)' : '';
             $msg.css(w2utils.cssPrefix({
                 'transition': '0.15s',
                 'transform': 'translateY(-' + options.height + 'px) ' + translateX
@@ -1381,8 +1380,7 @@ var w2utils = (function ($) {
                 .data('options', options)
                 .data('prev_focus', $(':focus'));
             var display = $(where.box).find('#w2ui-message'+ msgCount).css('display');
-            var oldTransform = $(where.box).find('#w2ui-message'+ msgCount).css('transform');
-            var translateX = ((oldTransform || '').match(/translateX\([^)]*\)/) || [])[1] || '';
+            var translateX = $(where.box).find('#w2ui-message'+ msgCount).hasClass('w2ui-message-autosize') ? 'translateX(-50%)' : '';
             $(where.box).find('#w2ui-message'+ msgCount).css(w2utils.cssPrefix({
                 'transform': (display === 'none' ? 'translateY(-' + options.height + 'px)' : 'translateY(0px)') + ' ' + translateX
             }));
@@ -1398,8 +1396,7 @@ var w2utils = (function ($) {
                 }
                 // timer needs to animation
                 setTimeout(function () {
-                    var oldTransform = $(where.box).find('#w2ui-message'+ msgCount).css('transform');
-                    var translateX = ((oldTransform || '').match(/translateX\([^)]*\)/) || [])[1] || '';
+                    var translateX = $(where.box).find('#w2ui-message'+ msgCount).hasClass('w2ui-message-autosize') ? 'translateX(-50%)' : '';
                     $(where.box).find('#w2ui-message'+ msgCount).css(w2utils.cssPrefix({
                         'transform': (display === 'none' ? 'translateY(0px)' : 'translateY(-' + options.height + 'px)') + ' ' + translateX
                     }));
