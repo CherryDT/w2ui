@@ -839,7 +839,7 @@
                 if (column == null) column = field.html.column;
                 if (field.html.caption === '') field.html.caption = field.name;
                 // input control
-                var input = '<input name="'+ field.name +'" class="w2ui-input" type="text" '+ field.html.attr + tabindex_str + '/>';
+                var input = field.html.html || (field.html.generator ? field.html.generator(field, tabindex_str) : '<input name="'+ field.name +'" class="w2ui-input" type="text" '+ field.html.attr + tabindex_str + '/>');
                 switch (field.type) {
                     case 'pass':
                     case 'password':
@@ -899,7 +899,7 @@
                     html += '\n   <div class="w2ui-group-title">'+ field.html.group + '</div>\n   <div class="w2ui-group">';
                     group = field.html.group;
                 }
-                html += '\n      <div class="w2ui-field '+ (field.html.span != null ? 'w2ui-span'+ field.html.span : '') +'" style="'+ field.html.style +'">'+
+                html += '\n      <div class="w2ui-field '+ (field.html.span != null ? 'w2ui-span'+ field.html.span : '') +'" data-field="'+ field.name +'" style="'+ field.html.style +'">'+
                         '\n         <label>' + w2utils.lang(field.html.caption) +'</label>'+
                         ((field.type === 'empty') ? '' : '\n         <div>'+ input + w2utils.lang(field.html.text) + '</div>') +
                         '\n      </div>';
