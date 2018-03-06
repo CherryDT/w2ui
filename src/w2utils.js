@@ -1366,7 +1366,7 @@ var w2utils = (function ($) {
             // add message
             $(where.box).find(where.body)
                 .before('<div id="w2ui-message' + msgCount + '" onmousedown="event.stopPropagation();" '+
-                        '   class="w2ui-message" style="display: none; z-index: 1500; ' +
+                        '   class="w2ui-message ' + options.containerClass + '" style="display: none; z-index: 1500; ' +
                             (head.length === 0 ? 'top: 0px;' : 'top: ' + w2utils.getSize(head, 'height') + 'px;') +
                             (options.width  != null ? 'width: ' + options.width + 'px; left: ' + ((pWidth - options.width) / 2) + 'px;' : 'left: 10px; right: 10px;') +
                             (options.height != null ? 'height: ' + options.height + 'px;' : 'bottom: 6px;') +
