@@ -391,12 +391,14 @@
             var box = $(this.box);
             box.find('.w2ui-scroll-left, .w2ui-scroll-right').hide();
             var scrollBox = box.find('.w2ui-scroll-wrapper');
-            if (scrollBox.find(':first').outerWidth() > scrollBox.outerWidth()) {
+            var el = scrollBox.find(':first');
+            if (el.css('display') == 'block') el = el.find('tbody:first'); // The table was modified to support autosize
+            if (el.outerWidth() > scrollBox.outerWidth()) {
                 // we have overflowed content
                 if (scrollBox.scrollLeft() > 0) {
                     box.find('.w2ui-scroll-left').show();
                 }
-                if (scrollBox.scrollLeft() < scrollBox.find(':first').outerWidth() - scrollBox.outerWidth()) {
+                if (scrollBox.scrollLeft() < el.outerWidth() - scrollBox.outerWidth()) {
                     box.find('.w2ui-scroll-right').show();
                 }
             }
