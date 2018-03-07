@@ -360,7 +360,7 @@
             var el = scrollBox.find(':first');
             var padding = 0;
             if (el.css('display') == 'block') {
-                padding = parseInt(el.css('paddingLeft')) || 0;
+                padding = el.outerWidth() - el.width();
                 el = el.find('tbody:first'); // The table was modified to support autosize
             }
 
@@ -398,15 +398,15 @@
             var el = scrollBox.find(':first');
             var padding = 0;
             if (el.css('display') == 'block') {
-                padding = parseInt(el.css('paddingLeft')) || 0;
+                padding = el.outerWidth() - el.width();
                 el = el.find('tbody:first'); // The table was modified to support autosize
             }
-            if (el.outerWidth() > scrollBox.outerWidth()) {
+            if (el.outerWidth() + padding > scrollBox.outerWidth()) {
                 // we have overflowed content
                 if (scrollBox.scrollLeft() > 0) {
                     box.find('.w2ui-scroll-left').show();
                 }
-                if (scrollBox.scrollLeft() < el.outerWidth() - scrollBox.outerWidth() + padding) {
+                if (scrollBox.scrollLeft() < el.outerWidth() + padding - scrollBox.outerWidth()) {
                     box.find('.w2ui-scroll-right').show();
                 }
             }
