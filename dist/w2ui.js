@@ -1342,7 +1342,7 @@ var w2utils = (function ($) {
             var translateX = $msg.hasClass('w2ui-message-autosize') ? 'translateX(-50%)' : '';
             $msg.css(w2utils.cssPrefix({
                 'transition': '0.15s',
-                'transform': 'translateY(-100%) ' + translateX
+                'transform': 'translateY(-' + options.height + 'px) ' + translateX
             })).addClass('w2ui-closing');
             if (msgCount === 1) {
                 if (this.unlock) {
@@ -1383,7 +1383,7 @@ var w2utils = (function ($) {
             var display = $(where.box).find('#w2ui-message'+ msgCount).css('display');
             var translateX = $(where.box).find('#w2ui-message'+ msgCount).hasClass('w2ui-message-autosize') ? 'translateX(-50%)' : '';
             $(where.box).find('#w2ui-message'+ msgCount).css(w2utils.cssPrefix({
-                'transform': (display === 'none' ? 'translateY(-100%)' : 'translateY(0px)') + ' ' + translateX
+                'transform': (display === 'none' ? 'translateY(-' + options.height + 'px)' : 'translateY(0px)') + ' ' + translateX
             }));
             if (display === 'none') {
                 $(where.box).find('#w2ui-message'+ msgCount).show().html(options.html);
@@ -1399,7 +1399,7 @@ var w2utils = (function ($) {
                 setTimeout(function () {
                     var translateX = $(where.box).find('#w2ui-message'+ msgCount).hasClass('w2ui-message-autosize') ? 'translateX(-50%)' : '';
                     $(where.box).find('#w2ui-message'+ msgCount).css(w2utils.cssPrefix({
-                        'transform': (display === 'none' ? 'translateY(0px)' : 'translateY(-100%)') + ' ' + translateX
+                        'transform': (display === 'none' ? 'translateY(0px)' : 'translateY(-' + options.height + 'px)') + ' ' + translateX
                     }));
                 }, 1);
                 // timer for lock
@@ -12905,7 +12905,7 @@ var w2popup = {};
                 var options = $msg.data('options') || {};
                 $msg.css(w2utils.cssPrefix({
                     'transition': '0.15s',
-                    'transform': 'translateY(-100%)'
+                    'transform': 'translateY(-' + options.height + 'px)'
                 }));
                 if (msgCount == 1) {
                     w2popup.unlock(150);
@@ -12942,14 +12942,14 @@ var w2popup = {};
                 $('#w2ui-popup #w2ui-message'+ msgCount).data('options', options).data('prev_focus', $(':focus'));
                 var display = $('#w2ui-popup #w2ui-message'+ msgCount).css('display');
                 $('#w2ui-popup #w2ui-message'+ msgCount).css(w2utils.cssPrefix({
-                    'transform': (display == 'none' ? 'translateY(-100%)' : 'translateY(0px)')
+                    'transform': (display == 'none' ? 'translateY(-' + options.height + 'px)' : 'translateY(0px)')
                 }));
                 if (display == 'none') {
                     $('#w2ui-popup #w2ui-message'+ msgCount).show().html(options.html);
                     // timer needs to animation
                     setTimeout(function () {
                         $('#w2ui-popup #w2ui-message'+ msgCount).css(w2utils.cssPrefix({
-                            'transform': (display == 'none' ? 'translateY(0px)' : 'translateY(-100%)')
+                            'transform': (display == 'none' ? 'translateY(0px)' : 'translateY(-' + options.height + 'px)')
                         }));
                     }, 1);
                     // timer for lock
