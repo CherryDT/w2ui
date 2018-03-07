@@ -358,12 +358,16 @@
             var width1, width2, scroll;
 
             var el = scrollBox.find(':first');
-            if (el.css('display') == 'block') el = el.find('tbody:first'); // The table was modified to support autosize
+            var padding = 0;
+            if (el.css('display') == 'block') {
+                padding = el.outerWidth() - el.width();
+                el = el.find('tbody:first'); // The table was modified to support autosize
+            }
 
             switch (direction) {
                 case 'left':
                     width1 = scrollBox.outerWidth();
-                    width2 = el.outerWidth();
+                    width2 = el.outerWidth() + padding;
                     scroll = scrollLeft - width1 + 50; // 35 is width of both button
                     if (scroll <= 0) scroll = 0;
                     scrollBox.animate({ scrollLeft: scroll }, 300);
@@ -371,7 +375,7 @@
 
                 case 'right':
                     width1 = scrollBox.outerWidth();
-                    width2 = el.outerWidth();
+                    width2 = el.outerWidth() + padding;;
                     scroll = scrollLeft + width1 - 50; // 35 is width of both button
                     if (scroll >= width2 - width1) scroll = width2 - width1;
                     scrollBox.animate({ scrollLeft: scroll }, 300);
@@ -392,13 +396,17 @@
             box.find('.w2ui-scroll-left, .w2ui-scroll-right').hide();
             var scrollBox = box.find('.w2ui-scroll-wrapper');
             var el = scrollBox.find(':first');
-            if (el.css('display') == 'block') el = el.find('tbody:first'); // The table was modified to support autosize
+            var padding = 0;
+            if (el.css('display') == 'block') {
+                padding = el.outerWidth() - el.width();
+                el = el.find('tbody:first'); // The table was modified to support autosize
+            }
             if (el.outerWidth() > scrollBox.outerWidth()) {
                 // we have overflowed content
                 if (scrollBox.scrollLeft() > 0) {
                     box.find('.w2ui-scroll-left').show();
                 }
-                if (scrollBox.scrollLeft() < el.outerWidth() - scrollBox.outerWidth()) {
+                if (scrollBox.scrollLeft() < el.outerWidth() - scrollBox.outerWidth() + padding) {
                     box.find('.w2ui-scroll-right').show();
                 }
             }
