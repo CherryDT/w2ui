@@ -357,10 +357,13 @@
             var scrollLeft = scrollBox.scrollLeft();
             var width1, width2, scroll;
 
+            var el = scrollBox.find(':first');
+            if (el.css('display') == 'block') el = el.find('tbody:first'); // The table was modified to support autosize
+
             switch (direction) {
                 case 'left':
                     width1 = scrollBox.outerWidth();
-                    width2 = scrollBox.find(':first').outerWidth();
+                    width2 = el.outerWidth();
                     scroll = scrollLeft - width1 + 50; // 35 is width of both button
                     if (scroll <= 0) scroll = 0;
                     scrollBox.animate({ scrollLeft: scroll }, 300);
@@ -368,7 +371,7 @@
 
                 case 'right':
                     width1 = scrollBox.outerWidth();
-                    width2 = scrollBox.find(':first').outerWidth();
+                    width2 = el.outerWidth();
                     scroll = scrollLeft + width1 - 50; // 35 is width of both button
                     if (scroll >= width2 - width1) scroll = width2 - width1;
                     scrollBox.animate({ scrollLeft: scroll }, 300);
