@@ -366,7 +366,7 @@
 
             switch (direction) {
                 case 'left':
-                    width1 = scrollBox.outerWidth();
+                    width1 = Math.ceil(scrollBox.outerWidth());
                     width2 = el.outerWidth() + padding;
                     scroll = scrollLeft - width1 + 50; // 35 is width of both button
                     if (scroll <= 0) scroll = 0;
@@ -374,7 +374,7 @@
                     break;
 
                 case 'right':
-                    width1 = scrollBox.outerWidth();
+                    width1 = Math.ceil(scrollBox.outerWidth());
                     width2 = el.outerWidth() + padding;;
                     scroll = scrollLeft + width1 - 50; // 35 is width of both button
                     if (scroll >= width2 - width1) scroll = width2 - width1;
@@ -401,12 +401,12 @@
                 padding = el.outerWidth() - el.width();
                 el = el.find('tbody:first'); // The table was modified to support autosize
             }
-            if (el.outerWidth() + padding > scrollBox.outerWidth()) {
+            if (el.outerWidth() + padding > Math.ceil(scrollBox.outerWidth())) {
                 // we have overflowed content
                 if (scrollBox.scrollLeft() > 0) {
                     box.find('.w2ui-scroll-left').show();
                 }
-                if (scrollBox.scrollLeft() < el.outerWidth() + padding - scrollBox.outerWidth()) {
+                if (scrollBox.scrollLeft() < el.outerWidth() + padding - Math.ceil(scrollBox.outerWidth())) {
                     box.find('.w2ui-scroll-right').show();
                 }
             }
