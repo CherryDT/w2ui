@@ -13863,7 +13863,7 @@ var w2prompt = function (label, title, callBack) {
             var el = scrollBox.find(':first');
             var padding = 0;
             if (el.css('display') == 'block') {
-                padding = el.css('paddingLeft') || 0;
+                padding = parseInt(el.css('paddingLeft')) || 0;
                 el = el.find('tbody:first'); // The table was modified to support autosize
             }
 
@@ -13901,7 +13901,7 @@ var w2prompt = function (label, title, callBack) {
             var el = scrollBox.find(':first');
             var padding = 0;
             if (el.css('display') == 'block') {
-                padding = el.css('paddingLeft') || 0;
+                padding = parseInt(el.css('paddingLeft')) || 0;
                 el = el.find('tbody:first'); // The table was modified to support autosize
             }
             if (el.outerWidth() > scrollBox.outerWidth()) {
