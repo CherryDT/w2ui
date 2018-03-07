@@ -360,7 +360,7 @@
             var el = scrollBox.find(':first');
             var padding = 0;
             if (el.css('display') == 'block') {
-                padding = el.outerWidth() - el.width();
+                padding = el.css('paddingLeft') || 0;
                 el = el.find('tbody:first'); // The table was modified to support autosize
             }
 
@@ -398,7 +398,7 @@
             var el = scrollBox.find(':first');
             var padding = 0;
             if (el.css('display') == 'block') {
-                padding = el.outerWidth() - el.width();
+                padding = el.css('paddingLeft') || 0;
                 el = el.find('tbody:first'); // The table was modified to support autosize
             }
             if (el.outerWidth() > scrollBox.outerWidth()) {
