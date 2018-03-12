@@ -890,7 +890,7 @@
 
                 }
                 if (group !== ''){
-                    if(page != field.html.page || column != field.html.column || (field.html.group && (group != field.html.group))){
+                    if(page != field.html.page || column != field.html.column || group != field.html.group) {
                        pages[page][column]  += '\n   </div>';
                        group = '';
                     }
