@@ -2878,7 +2878,7 @@
                     if (value == null) el.find('input').val(typeof val != 'object' ? val : '');
                     // init w2field
                     var input = el.find('input').get(0);
-                    $(input).w2field(edit.type, $.extend(edit, { selected: val }));
+                    $(input).w2field(edit.type, $.extend(edit.options, { selected: val }));
                     // add blur listener
                     setTimeout(function () {
                         var tmp = input;
