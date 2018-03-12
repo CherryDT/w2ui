@@ -18918,6 +18918,7 @@ var w2prompt = function (label, title, callBack) {
                 if (field.equalto && this.record[field.name] != this.record[field.equalto]) {
                     errors.push({ field: field, error: w2utils.lang('Field should be equal to ') + field.equalto });
                 }
+                if (field.onValidate) this.record[field.name] = field.onValidate(field.$el.closest('[data-field]'), field, val, errors);
             }
             // event before
             var edata = this.trigger({ phase: 'before', target: this.name, type: 'validate', errors: errors });
@@ -19793,6 +19794,7 @@ var w2prompt = function (label, title, callBack) {
                         $(field.el).w2field($.extend({}, field.options, { type: field.type }));
                         break;
                 }
+                if (field.onLoad) field.onLoad(field.$el.closest('[data-field]'), field, value);
             }
             // wrap pages in div
             var tmp = $(this.box).find('.w2ui-page');
