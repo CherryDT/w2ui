@@ -4538,6 +4538,8 @@ w2utils.event = {
                     // not arrows - refresh
                     if ([37, 38, 39, 40].indexOf(key) == -1) {
                         setTimeout(function () { obj.refresh(); }, 1);
+                        // refresh a second time because the input field may have jumped into the next line
+                        setTimeout(function () { obj.refresh(); }, 100);
                     }
                     // paste
                     if (event.keyCode == 86 && (event.ctrlKey || event.metaKey)) {
