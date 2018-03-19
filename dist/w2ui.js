@@ -5336,7 +5336,7 @@ w2utils.event = {
                                     var tmp = {
                                         field    : search.field,
                                         type     : search.type,
-                                        operator : (search.operator != null ? search.operator : (search.type == 'text' ? this.textSearch : 'is')),
+                                        operator : (search.operator != null ? search.operator : ((search.type == 'text' || search.type == 'list') ? this.textSearch : 'is')),
                                         value    : value
                                     };
                                     if ($.trim(value) != '') searchData.push(tmp);
