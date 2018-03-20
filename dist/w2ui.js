@@ -1360,7 +1360,9 @@ var w2utils = (function ($) {
                     '<div class="w2ui-message-buttons">'+ (options.buttons || '') +'</div>';
             }
             // hide previous messages
-            $(where.box).find('.w2ui-message').css('z-index', 1390);
+            $(where.box).find('.w2ui-message').each(function() {
+                $(this).css('z-index', 1390 + Number($(this).attr('id').match(/^w2ui-message(\d+)$/)[1]));
+            });
             head.data('old-z-index', head.css('z-index'));
             head.css('z-index', 1501);
             // add message
@@ -19685,7 +19687,7 @@ var w2prompt = function (label, title, callBack) {
             }
             // attach actions on buttons
             $(this.box).find('button, input[type=button]').each(function (index, el) {
-                $(el).off('click').on('click', function (event) {
+                $(el).off('click.w2form').on('click.w2form', function (event) {
                     var action = this.value;
                     if (this.id)   action = this.id;
                     if (this.name) action = this.name;
