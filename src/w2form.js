@@ -1153,7 +1153,7 @@
             }
             // attach actions on buttons
             $(this.box).find('button, input[type=button]').each(function (index, el) {
-                $(el).off('click').on('click', function (event) {
+                $(el).off('click.w2form').on('click.w2form', function (event) {
                     var action = this.value;
                     if (this.id)   action = this.id;
                     if (this.name) action = this.name;
