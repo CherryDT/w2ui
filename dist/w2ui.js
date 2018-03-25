@@ -6824,7 +6824,7 @@ w2utils.event = {
                             }
                         }
                         // edit last column that was edited
-                        if (this.selectType == 'row' && this.last._edit.column) {
+                        if (this.selectType == 'row' && this.last && this.last._edit && this.last._edit.column) {
                             columns = [this.last._edit.column];
                         }
                         if (columns.length > 0) {
