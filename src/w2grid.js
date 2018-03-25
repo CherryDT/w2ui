@@ -1885,7 +1885,7 @@
             }
         },
 
-        search: function (field, value) {
+        search: function (field, value, mergeOnlyType) {
             var obj         = this;
             var url         = (typeof this.url != 'object' ? this.url : this.url.get);
             var searchData  = [];
@@ -2116,7 +2116,12 @@
                         }
                     }
                     // merge current field and search if any
-                    searchData.push($.extend(true, {}, search, data));
+                    if (mergeOnlyType) {
+                        if (!data.type) data.type = search.type;
+                    } else {
+                        data = $.extend(true, {}, search, data);
+                    }
+                    searchData.push(data);
                 }
             }
             // event before
