@@ -18944,11 +18944,16 @@ var w2prompt = function (label, title, callBack) {
                         (function (err) {
                             setTimeout(function () {
                                 var fld = $(err.field.el).data('w2field').helpers.multi;
-                                $(err.field.el).w2tag(err.error,err.options);
+                                opt = $.extend({}, err.options);
+                                var $lastAdjacentElement = $(err.field.el).closest('.w2ui-field').find('div').first().children().last();
+                                if ($lastAdjacentElement.length) opt.left = $lastAdjacentElement.offset().left + $lastAdjacentElement.width() - ($(err.field.el).offset().left + $(err.field.el).width());
+                                $(err.field.el).w2tag(err.error,opt);
                                 $(fld).addClass('w2ui-error');
                             }, 1);
                         })(err);
                     } else {
+                        var $lastAdjacentElement = $(err.field.el).closest('.w2ui-field').find('div').first().children().last();
+                        if ($lastAdjacentElement.length) opt.left = $lastAdjacentElement.offset().left + $lastAdjacentElement.width() - ($(err.field.el).offset().left + $(err.field.el).width());
                         $(err.field.el).w2tag(err.error, opt);
                     }
                     this.goto(errors[0].field.page);
