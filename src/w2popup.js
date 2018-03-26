@@ -890,7 +890,8 @@ var w2confirm = function (msg, title, callBack) {
         no_style    : '',
         no_callBack : null,
         focus_to_no : false,
-        callBack    : null
+        callBack    : null,
+        countdown   : false
     };
     if (arguments.length == 1 && typeof msg == 'object') {
         $.extend(options, defaults, msg);
@@ -921,6 +922,11 @@ var w2confirm = function (msg, title, callBack) {
         options.no_style     = options.btn_no.style || options.no_style;
         options.no_callBack  = options.btn_no.callBack || options.no_callBack;
     }
+    if (options.msg.match(/^\^/)) { // Shortcut notation: Starting text with ^ will enable countdown
+        options.countdown = true;
+        options.msg = options.msg.substr(1);
+    }
+    var yesBtnCountdownClass = 'w2ui-yes-btn-' + Math.floor(Math.random() * 1000000);
     if ($('#w2ui-popup').length > 0 && w2popup.status != 'closing' && w2popup.get()) {
         if (options.width > w2popup.get().width) options.width = w2popup.get().width;
         if (options.height > (w2popup.get().height - 50)) options.height = w2popup.get().height - 50;
@@ -928,7 +934,7 @@ var w2confirm = function (msg, title, callBack) {
             width   : options.width,
             height  : options.height,
             body    : '<div class="w2ui-centered w2ui-confirm-msg" style="font-size: 13px;">' + options.msg + '</div>',
-            buttons : '<button id="Yes" class="w2ui-popup-btn w2ui-btn '+ options.yes_class +'" style="'+ options.yes_style +'">' + w2utils.lang(options.yes_text) + '</button>' +
+            buttons : '<button id="Yes" class="w2ui-popup-btn w2ui-btn '+ options.yes_class +' '+ yesBtnCountdownClass +'" style="'+ options.yes_style +'" ' + (options.countdown ? 'disabled' : '') + '>' + w2utils.lang(options.yes_text) + '</button>' +
                       '<button id="No" class="w2ui-popup-btn w2ui-btn '+ options.no_class +'" style="'+ options.no_style +'">' + w2utils.lang(options.no_text) + '</button>',
             onOpen: function () {
                 $('#w2ui-popup .w2ui-message .w2ui-btn').on('click.w2confirm', function (event) {
@@ -959,7 +965,7 @@ var w2confirm = function (msg, title, callBack) {
             modal      : true,
             showClose  : false,
             body       : '<div class="w2ui-centered w2ui-confirm-msg" style="font-size: 13px;">' + options.msg + '</div>',
-            buttons    : '<button id="Yes" class="w2ui-popup-btn w2ui-btn '+ options.yes_class +'" style="'+ options.yes_style +'">'+ w2utils.lang(options.yes_text) +'</button>'+
+            buttons    : '<button id="Yes" class="w2ui-popup-btn w2ui-btn '+ options.yes_class +' '+ yesBtnCountdownClass +'" style="'+ options.yes_style +'" ' + (options.countdown ? 'disabled' : '') + '>'+ w2utils.lang(options.yes_text) +'</button>'+
                          '<button id="No" class="w2ui-popup-btn w2ui-btn '+ options.no_class +'" style="'+ options.no_style +'">'+ w2utils.lang(options.no_text) +'</button>',
             onOpen: function (event) {
                 // do not use onComplete as it is slower
@@ -994,6 +1000,23 @@ var w2confirm = function (msg, title, callBack) {
                 }
             }
         });
+    }
+
+    if (options.countdown) {
+        var countdownLeft = 4;
+        var countdownInterval;
+        var updateCountdown = function() {
+            countdownLeft--;
+            if (countdownLeft <= 0) {
+                $('.' + yesBtnCountdownClass).prop('disabled', false);
+                $('.' + yesBtnCountdownClass).html(w2utils.lang(options.yes_text));
+                clearInterval(countdownInterval);
+            } else {
+                $('.' + yesBtnCountdownClass).html(w2utils.lang(options.yes_text) + ' (' + countdownLeft + ')');
+            }
+        };
+        setTimeout(function(){countdownInterval = setInterval(updateCountdown, 1000);}, 250);
+        updateCountdown();
     }
 
     return {

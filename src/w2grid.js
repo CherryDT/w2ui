@@ -3160,11 +3160,19 @@
             var recs = this.getSelection();
             if (recs.length === 0) return;
             if (this.msgDelete != '' && !force) {
+                var yesBtnCountdownClass = 'w2ui-yes-btn-' + Math.floor(Math.random() * 1000000);
+                var countdown = false;
+                var msg = w2utils.lang(obj.msgDelete);
+                var yesText = w2utils.lang('Yes');
+                if(this.msgDelete.match(/^\^/)) {
+                    countdown = true;
+                    msg = msg.substr(1);
+                }
                 this.message({
                     width   : 350,
                     height  : 170,
-                    body    : '<div class="w2ui-centered">' + w2utils.lang(obj.msgDelete) + '</div>',
-                    buttons : '<button type="button" class="w2ui-btn w2ui-btn-red" onclick="w2ui[\''+ this.name +'\'].delete(true)">' + w2utils.lang('Yes') + '</button>'+
+                    body    : '<div class="w2ui-centered">' + msg + '</div>',
+                    buttons : '<button type="button" class="w2ui-btn w2ui-btn-red '+ yesBtnCountdownClass +'" '+ (countdown ? 'disabled' : '') +' onclick="w2ui[\''+ this.name +'\'].delete(true)">' + yesText + '</button>'+
                               '<button type="button" class="w2ui-btn" onclick="w2ui[\''+ this.name +'\'].message()">' + w2utils.lang('No') + '</button>',
                     onOpen: function (event) {
                         var inputs = $(this.box).find('input, textarea, select, button');
@@ -3185,6 +3193,24 @@
                         }, 25);
                     }
                 });
+
+                if (countdown) {
+                    var countdownLeft = 4;
+                    var countdownInterval;
+                    var updateCountdown = function() {
+                        countdownLeft--;
+                        if (countdownLeft <= 0) {
+                            $('.' + yesBtnCountdownClass).prop('disabled', false);
+                            $('.' + yesBtnCountdownClass).html(yesText);
+                            clearInterval(countdownInterval);
+                        } else {
+                            $('.' + yesBtnCountdownClass).html(yesText + ' (' + countdownLeft + ')');
+                        }
+                    };
+                    setTimeout(function(){countdownInterval = setInterval(updateCountdown, 1000);}, 250);
+                    updateCountdown();
+                }
+
                 return;
             }
             this.message(); // hides confirmation message
